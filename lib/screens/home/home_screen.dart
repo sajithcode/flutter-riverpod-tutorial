@@ -35,17 +35,21 @@ class HomeScreen extends ConsumerWidget {
                 children: [
                   Image.asset(allProducts[index].image, width: 50,height: 50,),
                   Text(allProducts[index].title),
-                  Text('LKR.${allProducts[index].price}'),
+                  Text('£${allProducts[index].price}'),
 
                   if (cartProducts.contains(allProducts[index]))
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ref.read(cartNotifierProvider.notifier).removeProduct(allProducts[index]);
+                      },  
                       child: const Text('Remove'),
                     ),
 
                   if (!cartProducts.contains(allProducts[index]))
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ref.read(cartNotifierProvider.notifier).addProduct(allProducts[index]);
+                      },
                       child: const Text('Add to Cart'),
                     ),
                 ],
